@@ -1,0 +1,282 @@
+[
+  {
+    "ID": 821,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 6432544716,
+    "MAX_VALUE": 6933852112,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 822,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 6933852113,
+    "MAX_VALUE": 6950876886,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 823,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 6950876887,
+    "MAX_VALUE": 6967848658,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 824,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 6967848659,
+    "MAX_VALUE": 6984807399,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 825,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 6984807400,
+    "MAX_VALUE": 7001767374,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 826,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7001767376,
+    "MAX_VALUE": 7018707651,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 827,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7018707652,
+    "MAX_VALUE": 7035661263,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 828,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7035661264,
+    "MAX_VALUE": 7052632812,
+    "TOTAL_VALUE": 16214380
+  },
+  {
+    "ID": 829,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7052632813,
+    "MAX_VALUE": 7069318754,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 830,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7069318755,
+    "MAX_VALUE": 7085746208,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 831,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7085746209,
+    "MAX_VALUE": 7102195292,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 832,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7102195294,
+    "MAX_VALUE": 7118618983,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 833,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7118618984,
+    "MAX_VALUE": 7135061628,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 834,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7135061629,
+    "MAX_VALUE": 7151504062,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 835,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7151504063,
+    "MAX_VALUE": 7168010921,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 836,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7168010922,
+    "MAX_VALUE": 7184643746,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 837,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7184643747,
+    "MAX_VALUE": 7201273441,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 838,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7201273442,
+    "MAX_VALUE": 7217731985,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 839,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7217731986,
+    "MAX_VALUE": 7234231503,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 840,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7234231504,
+    "MAX_VALUE": 7250729181,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 841,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7250729182,
+    "MAX_VALUE": 7267522597,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 842,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7267522598,
+    "MAX_VALUE": 7284031338,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 843,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7284031339,
+    "MAX_VALUE": 7300522885,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 844,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7300522887,
+    "MAX_VALUE": 7317116609,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 845,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7317116610,
+    "MAX_VALUE": 7333947389,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 846,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7333947390,
+    "MAX_VALUE": 7351383957,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 847,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7351383958,
+    "MAX_VALUE": 7368237361,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 848,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7368237362,
+    "MAX_VALUE": 7385128585,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 849,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7385128586,
+    "MAX_VALUE": 7402396570,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 850,
+    "TYPE": "PERSON",
+    "MIN_VALUE": 7402396571,
+    "MAX_VALUE": 7423739897,
+    "TOTAL_VALUE": 16214379
+  },
+  {
+    "ID": 851,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 5432,
+    "MAX_VALUE": 989296297,
+    "TOTAL_VALUE": 6962898
+  },
+  {
+    "ID": 852,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 989296298,
+    "MAX_VALUE": 1001333150,
+    "TOTAL_VALUE": 6962898
+  },
+  {
+    "ID": 853,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1001333151,
+    "MAX_VALUE": 1013370333,
+    "TOTAL_VALUE": 6962898
+  },
+  {
+    "ID": 854,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1013370334,
+    "MAX_VALUE": 1025448620,
+    "TOTAL_VALUE": 6962898
+  },
+  {
+    "ID": 855,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1025448621,
+    "MAX_VALUE": 1037538861,
+    "TOTAL_VALUE": 6962898
+  },
+  {
+    "ID": 856,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1037538862,
+    "MAX_VALUE": 1054867793,
+    "TOTAL_VALUE": 6962897
+  },
+  {
+    "ID": 857,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1054867794,
+    "MAX_VALUE": 1121918062,
+    "TOTAL_VALUE": 6962897
+  },
+  {
+    "ID": 858,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1121918066,
+    "MAX_VALUE": 1233015999,
+    "TOTAL_VALUE": 6962897
+  },
+  {
+    "ID": 859,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1233016000,
+    "MAX_VALUE": 1282439467,
+    "TOTAL_VALUE": 6962897
+  },
+  {
+    "ID": 860,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1282439468,
+    "MAX_VALUE": 1313980587,
+    "TOTAL_VALUE": 6962897
+  }
+]
