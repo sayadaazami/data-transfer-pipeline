@@ -1,4 +1,4 @@
-conf.d
-env
-pipelines.yml
+.env
+output
 backups
+resources/sql/*.jar

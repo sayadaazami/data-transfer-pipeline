@@ -5,10 +5,10 @@ set -euo pipefail
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly RESOURCES_DIR="${SCRIPT_DIR}/resources"
 readonly OUTPUT_DIR="${SCRIPT_DIR}/output"
-readonly PARTITIONS_FILE="${RESOURCES_DIR}/_partitions.json"
-
-readonly PERSON_TEMPLATE="${RESOURCES_DIR}/person.template.conf"
-readonly COMPANY_TEMPLATE="${RESOURCES_DIR}/company.template.conf"
+readonly PARTITIONS_FILE="${RESOURCES_DIR}/partitions.json"
+readonly JDBC_PATH="/etc/logstash/conf.d/jdbc/jdbc.jar"
+readonly PERSON_TEMPLATE="${RESOURCES_DIR}/templates/person.template.conf"
+readonly COMPANY_TEMPLATE="${RESOURCES_DIR}/templates/company.template.conf"
 
 
 readPartitions() {
@@ -64,6 +64,19 @@ generatePipelinesYmlFile() {
     done
 }
 
+generateLogstashDefaultsFile() {
+    local FILE_NAME="${OUTPUT_DIR}/default-lostash.conf"    
+    cp "${RESOURCES_DIR}/templates/default-lostash.template.conf" "${FILE_NAME}"
+
+    echo "" >> "${FILE_NAME}"
+    echo "# MAX VALUES FOR PERSON" >> "${FILE_NAME}"
+    cat "${OUTPUT_DIR}/env/person_logstash_env" >> "${FILE_NAME}"
+
+    echo "" >> "${FILE_NAME}"
+    echo "# MAX VALUES FOR COMPANY" >> "${FILE_NAME}"
+    cat "${OUTPUT_DIR}/env/company_logstash_env" >> "${FILE_NAME}"
+}
+
 replaceTemplateVars() {
     local template_file="$1"
     local type="$2"
@@ -73,6 +86,7 @@ replaceTemplateVars() {
     
     sed \
         -e "s|\${INDEX}|${index}|g" \
+        -e "s|\${JDBC_PATH}|${JDBC_PATH}|g" \
         -e "s|\${METADATA_PATH}|${metadata_path}|g" \
         "${template_file}"
 }
@@ -123,11 +137,16 @@ main() {
         echo "Error: Partitions file not found: ${PARTITIONS_FILE}" >&2
         exit 1
     fi
+
+    if [ -d "output" ]; then
+        rm -rf output
+    fi
     
     processPartitions "PERSON"
     processPartitions "COMPANY"
     
     generatePipelinesYmlFile
+    generateLogstashDefaultsFile
 }
 
 main "$@"
