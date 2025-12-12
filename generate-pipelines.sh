@@ -2,13 +2,9 @@
 
 set -euo pipefail
 
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly RESOURCES_DIR="${SCRIPT_DIR}/resources"
-readonly OUTPUT_DIR="${SCRIPT_DIR}/output"
-readonly PARTITIONS_FILE="${RESOURCES_DIR}/partitions.json"
-readonly JDBC_PATH="/etc/logstash/conf.d/jdbc/jdbc.jar"
-readonly PERSON_TEMPLATE="${RESOURCES_DIR}/templates/person.template.conf"
-readonly COMPANY_TEMPLATE="${RESOURCES_DIR}/templates/company.template.conf"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+. "${SCRIPT_DIR}/config.sh"
+. "${SCRIPT_DIR}/utils.sh"
 
 
 readPartitions() {
@@ -25,9 +21,9 @@ generateSeqFile() {
     local type="$1"
     local index="$2"
     local min_value="$3"
-    local output_file="${OUTPUT_DIR}/conf.d/jdbc/${type,,}_v1_${index}_seq"
+    local output_file="${JDBC_OUTPUT}/${type,,}_v1_${index}_seq"
     
-    mkdir -p "$(dirname "${output_file}")"
+    ensureParentDir "${output_file}"
     echo "--- ${min_value}" > "${output_file}"
 }
 
@@ -35,11 +31,20 @@ generateEnvFile() {
     local type="$1"
     local index="$2"
     local max_value="$3"
-    local env_file="${OUTPUT_DIR}/env/${type,,}_logstash_env"
+    local env_file=""
     
-    mkdir -p "$(dirname "${env_file}")"
+    case "${type,,}" in
+        person)
+            env_file="${PERSON_ENV_FILE}"
+            ;;
+        company)
+            env_file="${COMPANY_ENV_FILE}"
+            ;;
+    esac
     
-    if [[ "${index}" -eq 1 ]]; then
+    ensureParentDir "${env_file}"
+    
+    if [ "${index}" -eq 1 ]; then
         > "${env_file}"
     fi
     
@@ -47,34 +52,31 @@ generateEnvFile() {
 }
 
 generatePipelinesYmlFile() {
-    local OUTPUT_FILE="${OUTPUT_DIR}/pipelines.yml"
-    > "$OUTPUT_FILE"
+    > "${PIPELINES_YML_OUTPUT}"
 
-    sorted_files=($(ls "${OUTPUT_DIR}/conf.d"/*.conf 2>/dev/null | xargs -n1 basename | sort -V))
+    sorted_files=($(ls "${CONF_D_OUTPUT}"/*.conf 2>/dev/null | xargs -n1 basename | sort -V))
 
     for filename in "${sorted_files[@]}"; do
-        file="${OUTPUT_DIR}/conf.d/$filename"
         base="${filename%.conf}"
         {
-            echo "- pipeline.id: $base"
-            echo "  path.config: \"/etc/logstash/conf.d/$base.conf\""
+            echo "- pipeline.id: ${base}"
+            echo "  path.config: \"/etc/logstash/conf.d/${base}.conf\""
             echo "  pipeline.batch.delay: 5"
             echo ""
-        } >> "$OUTPUT_FILE"
+        } >> "${PIPELINES_YML_OUTPUT}"
     done
 }
 
 generateLogstashDefaultsFile() {
-    local FILE_NAME="${OUTPUT_DIR}/default-lostash.conf"    
-    cp "${RESOURCES_DIR}/templates/default-lostash.template.conf" "${FILE_NAME}"
+    cp "${DEFAULT_LOGSTASH_TEMPLATE}" "${DEFAULT_LOGSTASH_OUTPUT}"
 
-    echo "" >> "${FILE_NAME}"
-    echo "# MAX VALUES FOR PERSON" >> "${FILE_NAME}"
-    cat "${OUTPUT_DIR}/env/person_logstash_env" >> "${FILE_NAME}"
+    echo "" >> "${DEFAULT_LOGSTASH_OUTPUT}"
+    echo "# MAX VALUES FOR PERSON" >> "${DEFAULT_LOGSTASH_OUTPUT}"
+    cat "${PERSON_ENV_FILE}" >> "${DEFAULT_LOGSTASH_OUTPUT}"
 
-    echo "" >> "${FILE_NAME}"
-    echo "# MAX VALUES FOR COMPANY" >> "${FILE_NAME}"
-    cat "${OUTPUT_DIR}/env/company_logstash_env" >> "${FILE_NAME}"
+    echo "" >> "${DEFAULT_LOGSTASH_OUTPUT}"
+    echo "# MAX VALUES FOR COMPANY" >> "${DEFAULT_LOGSTASH_OUTPUT}"
+    cat "${COMPANY_ENV_FILE}" >> "${DEFAULT_LOGSTASH_OUTPUT}"
 }
 
 replaceTemplateVars() {
@@ -104,13 +106,13 @@ generateConfigFile() {
             template_file="${COMPANY_TEMPLATE}"
             ;;
         *)
-            echo "Error: Unknown type ${type}" >&2
+            logError "Unknown type: ${type}"
             exit 1
             ;;
     esac
     
-    local output_file="${OUTPUT_DIR}/conf.d/${type,,}_v1_${index}.conf"
-    mkdir -p "$(dirname "${output_file}")"
+    local output_file="${CONF_D_OUTPUT}/${type,,}_v1_${index}.conf"
+    ensureParentDir "${output_file}"
     
     replaceTemplateVars "${template_file}" "${type,,}" "${index}" > "${output_file}"
 }
@@ -128,25 +130,28 @@ processPartitions() {
 }
 
 main() {
-    if ! command -v jq &> /dev/null; then
-        echo "Error: jq is required but not installed" >&2
-        exit 1
-    fi
+    logInfo "Starting pipeline generation"
     
-    if [[ ! -f "${PARTITIONS_FILE}" ]]; then
-        echo "Error: Partitions file not found: ${PARTITIONS_FILE}" >&2
-        exit 1
-    fi
+    requireCommand "jq"
+    requireFile "${PARTITIONS_FILE}"
 
-    if [ -d "output" ]; then
-        rm -rf output
+    if [ -d "${OUTPUT_DIR}" ]; then
+        logInfo "Cleaning output directory"
+        rm -rf "${OUTPUT_DIR}"
     fi
     
+    logInfo "Processing PERSON partitions"
     processPartitions "PERSON"
+    
+    logInfo "Processing COMPANY partitions"
     processPartitions "COMPANY"
     
+    logInfo "Generating pipelines.yml"
     generatePipelinesYmlFile
+    logInfo "Generating default-lostash.conf"
     generateLogstashDefaultsFile
+    
+    logInfo "Pipeline generation completed"
 }
 
 main "$@"

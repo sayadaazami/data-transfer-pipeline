@@ -1,13 +1,16 @@
 #!/bin/sh
 
-readonly JDBC_DIR="/etc/logstash/conf.d/jdbc"
-readonly JDBC_PATH="${JDBC_DIR}/jdbc.jar"
-readonly JBC_VERSION="ojdbc11"
+set -euo pipefail
 
-if [[ ! -f "${JDBC_PATH}" ]]; then
-    mkdir -p "${JDBC_DIR}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+. "${SCRIPT_DIR}/config.sh"
+. "${SCRIPT_DIR}/utils.sh"
+
+if [ ! -f "${JDBC_PATH}" ]; then
+    logInfo "Downloading JDBC driver"
+    ensureDir "${JDBC_DIR}"
     curl -o "${JDBC_PATH}" "https://download.oracle.com/otn-pub/otn_software/jdbc/2326/${JDBC_VERSION}.jar"
-    echo "JDBC downloaded successfully"
+    logInfo "JDBC downloaded successfully: ${JDBC_PATH}"
 else
-    echo "JDBC already exists"
+    logInfo "JDBC already exists: ${JDBC_PATH}"
 fi
