@@ -47,8 +47,8 @@ ensureDir() {
 
 requireCommand() {
     local cmd="$1"
-    if ! command -v "${cmd}" &> /dev/null; then
-        logError "${cmd} is required but not installed"
+    if ! command -v "${cmd}" >/dev/null 2>&1; then
+        logError "Command not found: ${cmd}"
         exit 1
     fi
 }
