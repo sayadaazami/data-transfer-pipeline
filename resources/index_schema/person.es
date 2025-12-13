@@ -212,8 +212,10 @@ PUT /person_2025_12
           },
           "title": {
             "type": "text",
-            "analyzer": "job_title",
-            "fields": { "keyword": { "type": "keyword" } }
+            "fields": {
+              "keyword": { "type": "keyword" },
+              "synonym": { "type": "text", "analyzer": "job_title" }
+            }
           },
           "summary": {
             "type": "text",
