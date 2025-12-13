@@ -13,7 +13,6 @@ DEFAULT_LOGSTASH_TEMPLATE="${TEMPLATES_DIR}/default-lostash.template.conf"
 
 JDBC_DIR="/etc/logstash/conf.d/jdbc"
 JDBC_PATH="${JDBC_DIR}/jdbc.jar"
-JDBC_VERSION="ojdbc11"
 
 DEST_DIR="/etc/logstash"
 BACKUP_DIR="${DEST_DIR}/backups"
