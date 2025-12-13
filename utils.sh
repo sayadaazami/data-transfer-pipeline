@@ -67,6 +67,14 @@ ensureParentDir() {
     ensureDir "${dir}"
 }
 
+toLower() {
+    echo "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+toUpper() {
+    echo "$1" | tr '[:lower:]' '[:upper:]'
+}
+
 createBackup() {
     local backup_dir="$1"
     local dest_dir="$2"

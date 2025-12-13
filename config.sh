@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 RESOURCES_DIR="${SCRIPT_DIR}/resources"
 OUTPUT_DIR="${SCRIPT_DIR}/output"

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "${SCRIPT_DIR}/config.sh"
 . "${SCRIPT_DIR}/utils.sh"
 
@@ -19,7 +19,8 @@ generateSeqFile() {
     local type="$1"
     local index="$2"
     local min_value="$3"
-    local output_file="${JDBC_OUTPUT}/${type,,}_v1_${index}_seq"
+    local type_lower=$(toLower "${type}")
+    local output_file="${JDBC_OUTPUT}/${type_lower}_v1_${index}_seq"
     
     ensureParentDir "${output_file}"
     echo "--- ${min_value}" > "${output_file}"
@@ -30,8 +31,10 @@ generateEnvFile() {
     local index="$2"
     local max_value="$3"
     local env_file=""
+    local type_lower=$(toLower "${type}")
+    local type_upper=$(toUpper "${type}")
     
-    case "${type,,}" in
+    case "${type_lower}" in
         person)
             env_file="${PERSON_ENV_FILE}"
             ;;
@@ -46,15 +49,13 @@ generateEnvFile() {
         > "${env_file}"
     fi
     
-    echo "SQL_MAX_VALUE_${type^^}_V1_${index}=${max_value}" >> "${env_file}"
+    echo "SQL_MAX_VALUE_${type_upper}_V1_${index}=${max_value}" >> "${env_file}"
 }
 
 generatePipelinesYmlFile() {
     > "${PIPELINES_YML_OUTPUT}"
 
-    sorted_files=($(ls "${CONF_D_OUTPUT}"/*.conf 2>/dev/null | xargs -n1 basename | sort -V))
-
-    for filename in "${sorted_files[@]}"; do
+    ls "${CONF_D_OUTPUT}"/*.conf 2>/dev/null | xargs -n1 basename | sort -V | while read -r filename; do
         base="${filename%.conf}"
         {
             echo "- pipeline.id: ${base}"
@@ -81,8 +82,8 @@ replaceTemplateVars() {
     local template_file="$1"
     local type="$2"
     local index="$3"
-    
-    local metadata_path="/etc/logstash/conf.d/jdbc/${type,,}_v1_${index}_seq"
+    local type_lower=$(toLower "${type}")
+    local metadata_path="/etc/logstash/conf.d/jdbc/${type_lower}_v1_${index}_seq"
     
     sed \
         -e "s|\${INDEX}|${index}|g" \
@@ -95,8 +96,9 @@ generateConfigFile() {
     local type="$1"
     local index="$2"
     local template_file=""
+    local type_lower=$(toLower "${type}")
     
-    case "${type,,}" in
+    case "${type_lower}" in
         person)
             template_file="${PERSON_TEMPLATE}"
             ;;
@@ -109,22 +111,30 @@ generateConfigFile() {
             ;;
     esac
     
-    local output_file="${CONF_D_OUTPUT}/${type,,}_v1_${index}.conf"
+    local output_file="${CONF_D_OUTPUT}/${type_lower}_v1_${index}.conf"
     ensureParentDir "${output_file}"
     
-    replaceTemplateVars "${template_file}" "${type,,}" "${index}" > "${output_file}"
+    replaceTemplateVars "${template_file}" "${type_lower}" "${index}" > "${output_file}"
 }
 
 processPartitions() {
     local type="$1"
     local index=1
+    local min_value
+    local max_value
+    local tmpfile
+    
+    tmpfile=$(mktemp)
+    readPartitions "${type}" > "${tmpfile}"
     
     while IFS='|' read -r min_value max_value; do
         generateSeqFile "${type}" "${index}" "${min_value}"
         generateEnvFile "${type}" "${index}" "${max_value}"
         generateConfigFile "${type}" "${index}"
-        ((index++))
-    done < <(readPartitions "${type}")
+        index=$((index + 1))
+    done < "${tmpfile}"
+    
+    rm -f "${tmpfile}"
 }
 
 main() {
