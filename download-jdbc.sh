@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -euo pipefail
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 . "${SCRIPT_DIR}/config.sh"
 . "${SCRIPT_DIR}/utils.sh"
