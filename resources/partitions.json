@@ -1,5 +1,75 @@
 [
   {
+    "ID": 1551,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 5432,
+    "MAX_VALUE": 989634590,
+    "TOTAL_VALUE": 7095707
+  },
+  {
+    "ID": 1552,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 989634591,
+    "MAX_VALUE": 1001965318,
+    "TOTAL_VALUE": 7095707
+  },
+  {
+    "ID": 1553,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1001965319,
+    "MAX_VALUE": 1014290983,
+    "TOTAL_VALUE": 7095706
+  },
+  {
+    "ID": 1554,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1014290984,
+    "MAX_VALUE": 1026651366,
+    "TOTAL_VALUE": 7095706
+  },
+  {
+    "ID": 1555,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1026651367,
+    "MAX_VALUE": 1039053378,
+    "TOTAL_VALUE": 7095706
+  },
+  {
+    "ID": 1556,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1039053381,
+    "MAX_VALUE": 1056024105,
+    "TOTAL_VALUE": 7095706
+  },
+  {
+    "ID": 1557,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1056024106,
+    "MAX_VALUE": 1136991164,
+    "TOTAL_VALUE": 7095706
+  },
+  {
+    "ID": 1558,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1136991174,
+    "MAX_VALUE": 1273819837,
+    "TOTAL_VALUE": 7095706
+  },
+  {
+    "ID": 1559,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1273819841,
+    "MAX_VALUE": 1313485588,
+    "TOTAL_VALUE": 7095706
+  },
+  {
+    "ID": 1560,
+    "TYPE": "COMPANY",
+    "MIN_VALUE": 1313485589,
+    "MAX_VALUE": 1732484362,
+    "TOTAL_VALUE": 7095706
+  },
+  {
     "ID": 1521,
     "TYPE": "PERSON",
     "MIN_VALUE": 387662298,
@@ -138,75 +208,5 @@
     "MIN_VALUE": 7413104176,
     "MAX_VALUE": 7543283695,
     "TOTAL_VALUE": 25184227
-  },
-  {
-    "ID": 1541,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 5432,
-    "MAX_VALUE": 989634587,
-    "TOTAL_VALUE": 7095706
-  },
-  {
-    "ID": 1542,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 989634588,
-    "MAX_VALUE": 1001965314,
-    "TOTAL_VALUE": 7095706
-  },
-  {
-    "ID": 1543,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1001965315,
-    "MAX_VALUE": 1014290975,
-    "TOTAL_VALUE": 7095706
-  },
-  {
-    "ID": 1544,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1014290978,
-    "MAX_VALUE": 1026651363,
-    "TOTAL_VALUE": 7095706
-  },
-  {
-    "ID": 1545,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1026651364,
-    "MAX_VALUE": 1039053372,
-    "TOTAL_VALUE": 7095706
-  },
-  {
-    "ID": 1546,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1039053374,
-    "MAX_VALUE": 1056024103,
-    "TOTAL_VALUE": 7095705
-  },
-  {
-    "ID": 1547,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1056024104,
-    "MAX_VALUE": 1136991154,
-    "TOTAL_VALUE": 7095705
-  },
-  {
-    "ID": 1548,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1136991163,
-    "MAX_VALUE": 1273819831,
-    "TOTAL_VALUE": 7095705
-  },
-  {
-    "ID": 1549,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1273819833,
-    "MAX_VALUE": 1313485585,
-    "TOTAL_VALUE": 7095705
-  },
-  {
-    "ID": 1550,
-    "TYPE": "COMPANY",
-    "MIN_VALUE": 1313485586,
-    "MAX_VALUE": 1732484362,
-    "TOTAL_VALUE": 7095705
   }
 ]
