@@ -5,12 +5,12 @@ DELETE /company_2025_12
 
 PUT /company_2025_12
 {
-    "aliases": { "company_alias": {} },
+    "aliases": { "company_new": {} },
     "settings": {
         "index": {
             "number_of_replicas": 1,
             "number_of_shards": 6,
-            "mapping": { "total_fields": { "limit": 20000 } },
+            "mapping": { "total_fields": { "limit":50000 } },
             "unassigned": { "node_left": { "delayed_timeout": "30m" } },
             "indexing": { "slowlog": { "threshold": { "index": { "warn": "10s" } } } },
             "search": {
