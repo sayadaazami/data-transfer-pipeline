@@ -10,7 +10,7 @@ PUT /company_2025_12
         "index": {
             "number_of_replicas": 1,
             "number_of_shards": 6,
-            "mapping": { "total_fields": { "limit":50000 } },
+            "mapping": { "total_fields": { "limit": 50000 } },
             "unassigned": { "node_left": { "delayed_timeout": "30m" } },
             "indexing": { "slowlog": { "threshold": { "index": { "warn": "10s" } } } },
             "search": {
@@ -24,9 +24,23 @@ PUT /company_2025_12
             }
         },
         "analysis": {
+            "char_filter": {
+                "url_prefix_stripper": {
+                    "type": "pattern_replace",
+                    "pattern": "https?://|www\\.",
+                    "replacement": ""
+                }
+            },
             "analyzer": {
                 "lowercase": {
                     "type": "custom",
+                    "char_filter": [ "url_prefix_stripper" ],
+                    "tokenizer": "standard",
+                    "filter": [ "lowercase" ]
+                },
+                "url": {
+                    "type": "custom",
+                    "char_filter": [ "url_prefix_stripper" ],
                     "tokenizer": "standard",
                     "filter": [ "lowercase" ]
                 }
@@ -34,6 +48,11 @@ PUT /company_2025_12
             "normalizer": {
                 "lowercase": {
                     "type": "custom",
+                    "filter": [ "lowercase" ]
+                },
+                "url": {
+                    "type": "custom",
+                    "char_filter": [ "url_prefix_stripper" ],
                     "filter": [ "lowercase" ]
                 }
             }
@@ -123,63 +142,63 @@ PUT /company_2025_12
                 "properties": {
                     "linkedin": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "domain": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "domain_ltd": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "website": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "blog": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "twitter": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "youtube": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "facebook": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "instagram": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "angellist": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "crunchbase": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     },
                     "spotify": {
                         "type": "text",
-                        "analyzer": "lowercase",
-                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                        "analyzer": "url",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
                     }
                 }
             },
@@ -604,6 +623,40 @@ PUT /company_2025_12
                                 "type": "text",
                                 "analyzer": "lowercase",
                                 "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                            },
+                            "sanitized": {
+                                "properties": {
+                                    "continent": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "country": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "state": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "city": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "street": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "raw_address": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    }
+                                }
                             }
                         }
                     },
@@ -645,6 +698,40 @@ PUT /company_2025_12
                                 "type": "text",
                                 "analyzer": "lowercase",
                                 "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                            },
+                            "sanitized": {
+                                "properties": {
+                                    "continent": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "country": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "state": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "city": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "street": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    },
+                                    "raw_address": {
+                                        "type": "text",
+                                        "analyzer": "lowercase",
+                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                                    }
+                                }
                             }
                         }
                     }
@@ -844,8 +931,11 @@ PUT /company_2025_12
         }
     }
 }
-
+/*
+🔶
+🔶
+🔶
+🔶
+*/
 PUT /company_2025_12/_settings
-{
-    "index": { "refresh_interval": -1 }
-}
+{ "index": { "refresh_interval": -1 } }

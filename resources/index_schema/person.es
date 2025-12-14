@@ -23,31 +23,11 @@ PUT /person_2025_12
       }
     },
     "analysis": {
-      "analyzer": {
-        "lowercase": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [ "lowercase" ]
-        },
-        "lowercase_ascii": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [ "lowercase", "asciifolding" ]
-        },
-        "job_title": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [ "lowercase", "asciifolding", "job_title_synonyms" ]
-        }
-      },
-      "normalizer": {
-        "lowercase": {
-          "type": "custom",
-          "filter": [ "lowercase" ]
-        },
-        "lowercase_ascii": {
-          "type": "custom",
-          "filter": [ "lowercase", "asciifolding" ]
+      "char_filter": {
+        "url_prefix_stripper": {
+          "type": "pattern_replace",
+          "pattern": "https?://|www\\.",
+          "replacement": ""
         }
       },
       "filter": {
@@ -115,6 +95,44 @@ PUT /person_2025_12
             "ccao => chief customer advocacy officer",
             "clro => chief legal and regulatory officer"
           ]
+        }
+      },
+      "analyzer": {
+        "lowercase": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [ "lowercase" ]
+        },
+        "lowercase_ascii": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [ "lowercase", "asciifolding" ]
+        },
+        "job_title": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [ "lowercase", "asciifolding", "job_title_synonyms" ]
+        },
+        "url": {
+          "type": "custom",
+          "char_filter": [ "url_prefix_stripper" ],
+          "tokenizer": "standard",
+          "filter": [ "lowercase" ]
+        }
+      },
+      "normalizer": {
+        "lowercase": {
+          "type": "custom",
+          "filter": [ "lowercase" ]
+        },
+        "lowercase_ascii": {
+          "type": "custom",
+          "filter": [ "lowercase", "asciifolding" ]
+        },
+        "url": {
+          "type": "custom",
+          "char_filter": [ "url_prefix_stripper" ],
+          "filter": [ "lowercase" ]
         }
       }
     }
@@ -242,23 +260,23 @@ PUT /person_2025_12
         "properties": {
           "facebook": {
             "type": "text",
-            "analyzer": "lowercase",
-            "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+            "analyzer": "url",
+            "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
           },
           "github": {
             "type": "text",
-            "analyzer": "lowercase",
-            "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+            "analyzer": "url",
+            "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
           },
           "linkedin": {
             "type": "text",
-            "analyzer": "lowercase",
-            "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+            "analyzer": "url",
+            "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
           },
           "twitter": {
             "type": "text",
-            "analyzer": "lowercase",
-            "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+            "analyzer": "url",
+            "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
           }
         }
       },
@@ -1007,63 +1025,63 @@ PUT /person_2025_12
             "properties": {
               "linkedin": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "domain": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "domain_ltd": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "website": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "blog": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "twitter": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "youtube": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "facebook": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "instagram": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "angellist": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "crunchbase": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               },
               "spotify": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "url",
+                "fields": { "keyword": { "type": "keyword", "normalizer": "url" } }
               }
             }
           },
@@ -1488,6 +1506,40 @@ PUT /person_2025_12
                     "type": "text",
                     "analyzer": "lowercase",
                     "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                  },
+                  "sanitized": {
+                    "properties": {
+                      "continent": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "country": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "state": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "city": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "street": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "raw_address": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      }
+                    }
                   }
                 }
               },
@@ -1529,6 +1581,40 @@ PUT /person_2025_12
                     "type": "text",
                     "analyzer": "lowercase",
                     "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                  },
+                  "sanitized": {
+                    "properties": {
+                      "continent": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "country": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "state": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "city": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "street": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      },
+                      "raw_address": {
+                        "type": "text",
+                        "analyzer": "lowercase",
+                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                      }
+                    }
                   }
                 }
               }
@@ -1730,5 +1816,11 @@ PUT /person_2025_12
     }
   }
 }
+/*
+🔶
+🔶
+🔶
+🔶
+*/
 PUT /person_2025_12/_settings
 { "index": { "refresh_interval": -1 } }
