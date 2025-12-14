@@ -111,7 +111,7 @@ PUT /person_2025_12
         "job_title": {
           "type": "custom",
           "tokenizer": "standard",
-          "filter": [ "lowercase", "asciifolding", "job_title_synonyms" ]
+          "filter": [ "lowercase", "job_title_synonyms" ]
         },
         "url": {
           "type": "custom",
@@ -230,9 +230,9 @@ PUT /person_2025_12
           },
           "title": {
             "type": "text",
+            "analyzer": "job_title",
             "fields": {
-              "keyword": { "type": "keyword" },
-              "synonym": { "type": "text", "analyzer": "job_title" }
+              "keyword": { "type": "keyword" }
             }
           },
           "summary": {
