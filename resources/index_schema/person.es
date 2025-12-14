@@ -231,9 +231,7 @@ PUT /person_2025_12
           "title": {
             "type": "text",
             "analyzer": "job_title",
-            "fields": {
-              "keyword": { "type": "keyword" }
-            }
+            "fields": { "keyword": { "type": "keyword" } }
           },
           "summary": {
             "type": "text",
@@ -1810,7 +1808,8 @@ PUT /person_2025_12
                 }
               }
             }
-          }
+          },
+          "has_embedding": { "type": "boolean" }
         }
       }
     }

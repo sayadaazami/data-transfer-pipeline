@@ -1,15 +1,14 @@
-GET /company_2025_12
+GET /contact
 
-DELETE /company_2025_12
+DELETE /contact_2025_12
 
-
-PUT /company_2025_12
+PUT /contact_2025_12
 {
-    "aliases": { "company_new": {} },
+    "aliases": {},
     "settings": {
         "index": {
             "number_of_replicas": 1,
-            "number_of_shards": 6,
+            "number_of_shards": 10,
             "mapping": { "total_fields": { "limit": 50000 } },
             "unassigned": { "node_left": { "delayed_timeout": "30m" } },
             "indexing": { "slowlog": { "threshold": { "index": { "warn": "10s" } } } },
@@ -928,7 +927,16 @@ PUT /company_2025_12
                     }
                 }
             },
-            "has_embedding": { "type": "boolean" }
+            "labels": { "type": "keyword" },
+            "revelation": { "type": "flattened" },
+            "user": {
+                "properties": {
+                    "firstName": { "type": "keyword" },
+                    "id": { "type": "keyword" },
+                    "lastName": { "type": "keyword" },
+                    "username": { "type": "keyword" }
+                }
+            }
         }
     }
 }
@@ -938,5 +946,22 @@ PUT /company_2025_12
 🔶
 🔶
 */
-PUT /company_2025_12/_settings
-{ "index": { "refresh_interval": -1 } }
+POST _aliases
+{
+    "actions": [
+        {
+            "add": {
+                "index": "contact-v1",
+                "alias": "contact",
+                "is_write_index": false
+            }
+        },
+        {
+            "add": {
+                "index": "contact_2025_12",
+                "alias": "contact",
+                "is_write_index": true
+            }
+        }
+    ]
+}
