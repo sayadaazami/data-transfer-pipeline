@@ -62,10 +62,6 @@ PUT /company_2025_12
         "dynamic": "strict",
         "dynamic_templates": [],
         "runtime": {
-            "has_embedding": {
-                "type": "boolean",
-                "script": { "source": "emit(params._source.embedding != null)", "lang": "painless" }
-            }
         },
         "properties": {
             "id": { "type": "keyword" },
@@ -928,7 +924,7 @@ PUT /company_2025_12
                     }
                 }
             },
-            "has_embedding": { "type": "boolean" }
+            "has_embedding": { "type": "long" }
         }
     }
 }

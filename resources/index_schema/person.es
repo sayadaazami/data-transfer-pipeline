@@ -947,6 +947,7 @@ PUT /person_2025_12
           "industry": { "type": "keyword" }
         }
       },
+      "has_embedding": { "type": "long" },
       "company": {
         "properties": {
           "id": { "type": "keyword" },
@@ -1808,8 +1809,7 @@ PUT /person_2025_12
                 }
               }
             }
-          },
-          "has_embedding": { "type": "boolean" }
+          }
         }
       }
     }
@@ -1822,4 +1822,12 @@ PUT /person_2025_12
 🔶
 */
 PUT /person_2025_12/_settings
-{ "index": { "refresh_interval": -1 } }
+{
+  /*
+🔶
+🔶
+🔶
+🔶
+*/
+  "index": { "refresh_interval": -1 }
+}
