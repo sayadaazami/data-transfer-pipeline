@@ -2,11 +2,11 @@ DELETE /account_2025_12
 
 PUT /account_2025_12
 {
-    "aliases": {},
+    "aliases": { "account_new": {} },
     "settings": {
         "index": {
             "number_of_replicas": 1,
-            "number_of_shards": 10,
+            "number_of_shards": 1,
             "mapping": { "total_fields": { "limit": 50000 } },
             "unassigned": { "node_left": { "delayed_timeout": "30m" } },
             "indexing": { "slowlog": { "threshold": { "index": { "warn": "10s" } } } },
@@ -28,88 +28,12 @@ PUT /account_2025_12
                     "replacement": ""
                 }
             },
-            "filter": {
-                "job_title_synonyms": {
-                    "type": "synonym_graph",
-                    "synonyms": [
-                        // items
-                        "ceo => chief executive officer",
-                        "cfo => chief financial officer",
-                        "coo => chief operating officer",
-                        "cto => chief technology officer",
-                        "cmo => chief marketing officer",
-                        "cpo => chief product officer",
-                        "cpo => chief people officer",
-                        "cpo => chief performance officer",
-                        "cpo => chief privacy officer",
-                        "chro => chief human resources officer",
-                        "cso => chief strategy officer",
-                        "cso => chief security officer",
-                        "cco => chief commercial officer",
-                        "cco => chief communications officer",
-                        "cco => chief compliance officer",
-                        "cao => chief administrative officer",
-                        "cio => chief investment officer",
-                        "cio => chief information officer",
-                        "clo => chief legal officer",
-                        "clo => chief learning officer",
-                        "cko => chief knowledge officer",
-                        "cdo => chief data officer",
-                        "cdo => chief digital officer",
-                        "cdo => chief diversity officer",
-                        "cro => chief revenue officer",
-                        "cro => chief risk officer",
-                        "cro => chief relationship officer",
-                        "cxo => chief experience officer",
-                        "cgo => chief growth officer",
-                        "cdao => chief data analytics officer",
-                        "ccdo => chief customer development officer",
-                        "ciso => chief information security officer",
-                        "caio => chief artificial intelligence officer",
-                        "cbo => chief business officer",
-                        "cfoo => chief financial and operating officer",
-                        "csco => chief supply chain officer",
-                        "cpeo => chief people and equity officer",
-                        "ccro => chief corporate responsibility officer",
-                        "cino => chief innovation officer",
-                        "cge => chief green officer",
-                        "cge => chief of global engagement",
-                        "ctpo => chief technology and product officer",
-                        "coio => chief operating and innovation officer",
-                        "cme => chief medical executive",
-                        "cdmo => chief digital marketing officer",
-                        "cvo => chief visionary officer",
-                        "cse => chief sustainability executive",
-                        "csio => chief science and innovation officer",
-                        "csio => chief sales and innovation officer",
-                        "cdso => chief digital strategy officer",
-                        "gc => general counsel",
-                        "evp => executive vice president",
-                        "svp => senior vice president",
-                        "vp => vice president",
-                        "dvp => divisional vice president",
-                        "cexo => chief executive officer of excellence",
-                        "eco => ethics and compliance officer",
-                        "ccao => chief customer advocacy officer",
-                        "clro => chief legal and regulatory officer"
-                    ]
-                }
-            },
             "analyzer": {
                 "lowercase": {
                     "type": "custom",
+                    "char_filter": [ "url_prefix_stripper" ],
                     "tokenizer": "standard",
                     "filter": [ "lowercase" ]
-                },
-                "lowercase_ascii": {
-                    "type": "custom",
-                    "tokenizer": "standard",
-                    "filter": [ "lowercase", "asciifolding" ]
-                },
-                "job_title": {
-                    "type": "custom",
-                    "tokenizer": "standard",
-                    "filter": [ "lowercase", "job_title_synonyms" ]
                 },
                 "url": {
                     "type": "custom",
@@ -123,10 +47,6 @@ PUT /account_2025_12
                     "type": "custom",
                     "filter": [ "lowercase" ]
                 },
-                "lowercase_ascii": {
-                    "type": "custom",
-                    "filter": [ "lowercase", "asciifolding" ]
-                },
                 "url": {
                     "type": "custom",
                     "char_filter": [ "url_prefix_stripper" ],
@@ -137,55 +57,9 @@ PUT /account_2025_12
     },
     "mappings": {
         "dynamic": "strict",
-        "dynamic_templates": [
-            {
-                "flat_educations_entries": {
-                    "path_match": "flat_educations.*",
-                    "mapping": {
-                        "properties": {
-                            "school": {
-                                "properties": {
-                                    "urn": { "type": "long" },
-                                    "name": {
-                                        "type": "text",
-                                        "analyzer": "lowercase",
-                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
-                                    },
-                                    "id": { "type": "keyword" },
-                                    "url": {
-                                        "type": "text",
-                                        "analyzer": "lowercase",
-                                        "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
-                                    }
-                                }
-                            },
-                            "grade": {
-                                "type": "text",
-                                "analyzer": "lowercase",
-                                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
-                            },
-                            "field_of_study": {
-                                "type": "text",
-                                "analyzer": "lowercase",
-                                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
-                            },
-                            "degree_name": {
-                                "type": "text",
-                                "analyzer": "lowercase",
-                                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
-                            },
-                            "date": {
-                                "properties": {
-                                    "start": { "type": "date" },
-                                    "end": { "type": "date" }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        ],
-        "runtime": {},
+        "dynamic_templates": [],
+        "runtime": {
+        },
         "properties": {
             "id": { "type": "keyword" },
             "urn": { "type": "long" },
@@ -1047,7 +921,7 @@ PUT /account_2025_12
                     }
                 }
             },
-            "has_embedding": { "type": "boolean" },
+            "has_embedding": { "type": "long" },
             "labels": { "type": "keyword" },
             "revelation": { "type": "flattened" },
             "user": {
