@@ -1,12 +1,12 @@
-DELETE /account_2025_12
+DELETE /account_v3
 
-PUT /account_2025_12
+PUT /account_v3
 {
     "aliases": { "account_new": {} },
     "settings": {
         "index": {
             "number_of_replicas": 1,
-            "number_of_shards": 1,
+            "number_of_shards": 3,
             "mapping": { "total_fields": { "limit": 50000 } },
             "unassigned": { "node_left": { "delayed_timeout": "30m" } },
             "indexing": { "slowlog": { "threshold": { "index": { "warn": "10s" } } } },
@@ -924,6 +924,7 @@ PUT /account_2025_12
             "has_embedding": { "type": "long" },
             "labels": { "type": "keyword" },
             "revelation": { "type": "flattened" },
+            "workspace_id": { "type": "keyword" },
             "user": {
                 "properties": {
                     "firstName": { "type": "keyword" },
@@ -953,7 +954,7 @@ POST _aliases
         },
         {
             "add": {
-                "index": "account_2025_12",
+                "index": "account_v3",
                 "alias": "account",
                 "is_write_index": true
             }

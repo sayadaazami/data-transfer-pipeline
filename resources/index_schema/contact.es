@@ -1,15 +1,13 @@
-GET /contact
-
-DELETE /contact_2025_12
+DELETE /contact_v3
 
 
-PUT /contact_2025_12
+PUT /contact_v3
 {
-  "aliases": { "contact_new": {} },
+  "aliases": { "contact_new2": {} },
   "settings": {
     "index": {
       "number_of_replicas": 1,
-      "number_of_shards": 1,
+      "number_of_shards": 3,
       "mapping": { "total_fields": { "limit": 50000 } },
       "unassigned": { "node_left": { "delayed_timeout": "30m" } },
       "indexing": { "slowlog": { "threshold": { "index": { "warn": "10s" } } } },
@@ -951,6 +949,7 @@ PUT /contact_2025_12
       "has_embedding": { "type": "long" },
       "labels": { "type": "keyword" },
       "revelation": { "type": "flattened" },
+      "workspace_id": { "type": "keyword" },
       "user": {
         "properties": {
           "firstName": { "type": "keyword" },
@@ -1844,10 +1843,17 @@ POST _aliases
     },
     {
       "add": {
-        "index": "contact_2025_12",
+        "index": "contact_v3",
         "alias": "contact",
         "is_write_index": true
       }
     }
   ]
+}
+
+
+
+PUT /company_2025_12/_settings
+{
+    "index": { "refresh_interval": "1s" }
 }

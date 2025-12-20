@@ -911,13 +911,13 @@ PUT /person_2025_12
             "properties": {
               "current": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "job_title",
+                "fields": { "keyword": { "type": "keyword" } }
               },
               "past": {
                 "type": "text",
-                "analyzer": "lowercase",
-                "fields": { "keyword": { "type": "keyword", "normalizer": "lowercase" } }
+                "analyzer": "job_title",
+                "fields": { "keyword": { "type": "keyword" } }
               }
             }
           }
@@ -1822,6 +1822,4 @@ PUT /person_2025_12
 🔶
 */
 PUT /person_2025_12/_settings
-{
-  "index": { "refresh_interval": -1 }
-}
+{ "index": { "refresh_interval": -1 } }
